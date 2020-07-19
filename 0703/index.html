@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/remScale.js"></script>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div class="pro-list">
+        <div class="wrap">
+            <div class="nav-top">
+                <ul class="clearfix">
+                    <li @click='choose(i)' :class="[i==num ?'first ':'']" v-for='(item,i) in list'><a href="#">
+                            {{item.tit}}</a></li>
+                </ul>
+            </div>
+            <div class="pro clearfix" v-for='(item,i) in list[num].goods'>
+                <a href="#">
+                    <img :src="item.img" alt="">
+                    <div class="detail">
+                        <p class="p1">{{item.name}}</p>
+                        <p class="p2"><span>￥</span>{{item.price}}</p>
+                        <p class="p3">已售{{item.num}}件</p>
+                        <span class="buy">立即抢购</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    new Vue({
+        el: '.pro-list',
+        data: {
+            num: 0,
+            arr: ['热门推荐', '发现好货', '只看专场', '只看商品'],
+            list: [
+                {
+                    tit: '热门推荐',
+                    goods: [
+                        {
+                            img: 'https://image2.suning.cn/uimg/cms/img/156756354662165548.jpg',
+                            name: "PPTV智能电视50VU4",
+                            price: "1999",
+                            num: "800",
+
+                        },
+                        {
+                            img: 'https://imgservice5.suning.cn/uimg1/b2c/atmosphere/J2WcrydlCg209LrducYVHQ.jpg?format=400w_400h_4e',
+                            name: "长虹55D4P",
+                            price: "2999",
+                            num: "300",
+
+                        },
+                        {
+                            img: 'https://imgservice2.suning.cn/uimg1/b2c/atmosphere/93m8H-0CrNEyAHS0jAJKuw.jpg?format=400w_400h_4e',
+                            name: "海信(Hisense)H55E3A",
+                            price: "2888",
+                            num: "200",
+
+                        },
+                        {
+                            img: 'https://imgservice4.suning.cn/uimg1/b2c/atmosphere/VxhRdBH-3FpRJyUOyB-8Cw.jpg?format=400w_400h_4e',
+                            name: "55英寸液晶平板电视机",
+                            price: "3888",
+                            num: "1500",
+
+                        },
+                    ]
+                },
+                {
+                    tit: '发现好货',
+                    goods: [
+                        {
+                            img: 'https://imgservice5.suning.cn/uimg1/b2c/image/-aLz1a09-YB7VvhHs4zA4w.jpg_400w_400h_4e',
+                            name: "【中华特色】乌兰察布馆 ",
+                            price: "99",
+                            num: "20",
+
+                        },
+                        {
+                            img: 'https://imgservice4.suning.cn/uimg1/b2c/image/e6yIl6yY6HXnHwJvUpVvdw.jpg_400w_400h_4e',
+                            name: "【中华特色】营口馆",
+                            price: "29",
+                            num: "300",
+
+                        },
+                        {
+                            img: 'https://image.suning.cn/uimg/b2c/newcatentries/0070122375-000000000826275032_1.jpg?format=400w_400h',
+                            name: "【中华特色】乌兰察布馆 ",
+                            price: "28",
+                            num: "200",
+
+                        },
+                        {
+                            img: 'https://imgservice.suning.cn/uimg1/b2c/image/02nT-of3OWxVoOWi8s_Thw.jpg?format=400w_400h',
+                            name: "【中华特色】乌兰察布馆",
+                            price: "32",
+                            num: "15",
+
+                        },
+                    ]
+                },
+                {
+                    tit: '只看专场',
+                    goods: [
+                        {
+                            img: 'https://image2.suning.cn/uimg/cms/img/156756354662165548.jpg',
+                            name: "PPTV智能电视50VU4",
+                            price: "1999",
+                            num: "800",
+
+                        },
+                        {
+                            img: 'https://imgservice5.suning.cn/uimg1/b2c/atmosphere/J2WcrydlCg209LrducYVHQ.jpg?format=400w_400h_4e',
+                            name: "长虹55D4P",
+                            price: "2999",
+                            num: "300",
+
+                        },
+                        {
+                            img: 'https://imgservice2.suning.cn/uimg1/b2c/atmosphere/93m8H-0CrNEyAHS0jAJKuw.jpg?format=400w_400h_4e',
+                            name: "海信(Hisense)H55E3A",
+                            price: "2888",
+                            num: "200",
+
+                        },
+                        {
+                            img: 'https://imgservice4.suning.cn/uimg1/b2c/atmosphere/VxhRdBH-3FpRJyUOyB-8Cw.jpg?format=400w_400h_4e',
+                            name: "55英寸液晶平板电视机",
+                            price: "3888",
+                            num: "1500",
+
+                        },
+                    ]
+                },
+                {
+                    tit: '发现好货',
+                    goods: [
+                        {
+                            img: 'https://imgservice5.suning.cn/uimg1/b2c/image/-aLz1a09-YB7VvhHs4zA4w.jpg_400w_400h_4e',
+                            name: "【中华特色】乌兰察布馆 ",
+                            price: "99",
+                            num: "20",
+
+                        },
+                        {
+                            img: 'https://imgservice4.suning.cn/uimg1/b2c/image/e6yIl6yY6HXnHwJvUpVvdw.jpg_400w_400h_4e',
+                            name: "【中华特色】营口馆",
+                            price: "29",
+                            num: "300",
+
+                        },
+                        {
+                            img: 'https://image.suning.cn/uimg/b2c/newcatentries/0070122375-000000000826275032_1.jpg?format=400w_400h',
+                            name: "【中华特色】乌兰察布馆 ",
+                            price: "28",
+                            num: "200",
+
+                        },
+                        {
+                            img: 'https://imgservice.suning.cn/uimg1/b2c/image/02nT-of3OWxVoOWi8s_Thw.jpg?format=400w_400h',
+                            name: "【中华特色】乌兰察布馆",
+                            price: "32",
+                            num: "15",
+
+                        },
+                    ]
+                },
+
+            ]
+        },
+        methods: {
+            choose(i) {
+                this.num = i;
+
+            }
+        }
+    })
+</script>
+
+</html>

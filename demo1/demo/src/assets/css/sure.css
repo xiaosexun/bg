@@ -1,0 +1,382 @@
+body {
+  margin: 0;
+  font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-size: 100%;
+  font-weight: normal;
+}
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+p,
+dl,
+dd {
+  margin: 0;
+}
+img {
+  vertical-align: middle;
+  border: none;
+}
+a {
+  text-decoration: none;
+  color: #666;
+}
+strong,
+b {
+  font-weight: normal;
+}
+i,
+em {
+  font-style: normal;
+}
+table {
+  border-collapse: collapse;
+}
+th {
+  font-weight: normal;
+  text-align: left;
+  vertical-align: top;
+}
+td {
+  text-align: left;
+  vertical-align: top;
+}
+input {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: inherit;
+  outline: none;
+  /*去掉输入框的蓝色轮廓框*/
+}
+textarea {
+  resize: none;
+  /* 禁止用户重置元素大小 */
+  overflow: auto;
+  font-family: inherit;
+  outline: none;
+}
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+a,
+input,
+button {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input,
+button {
+  -webkit-appearance: none;
+}
+input {
+  border-radius: 0;
+}
+input::-webkit-input-placeholder {
+  color: #666;
+  /*  默认的样式 */
+}
+input:focus::-webkit-input-placeholder {
+  color: #666;
+  /* 点击后的样式 */
+}
+body {
+  background-color: #e0e0e0;
+}
+.container {
+  width: 7.5rem;
+  margin: 0 auto;
+  padding-bottom: 1.14rem;
+}
+.wrap {
+  width: 7.1rem;
+  margin: 0 auto;
+}
+.header {
+  width: 7.5rem;
+  height: 0.88rem;
+  background-color: #f26b11;
+}
+.header .wrap {
+  height: 0.88rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header img {
+  width: 0.17rem;
+  height: 0.29rem;
+}
+.header h2 {
+  font-size: 0.36rem;
+  color: #fff;
+}
+.header .points span {
+  display: inline-block;
+  margin-left: 0.08rem;
+  width: 0.12rem;
+  height: 0.12rem;
+  background-color: #fff;
+  border-radius: 50%;
+}
+.add {
+  height: 1.52rem;
+  background-color: #fff;
+  padding: 0 0.22rem;
+}
+.add .txt {
+  float: left;
+  font-size: 0.26rem;
+  width: 6.7rem;
+  padding-top: 0.26rem;
+}
+.add .txt .user span {
+  float: right;
+}
+.add .txt .address {
+  margin-top: 0.22rem;
+}
+.add .txt .address span {
+  display: inline-block;
+  width: 5.3rem;
+  vertical-align: top;
+  line-height: 0.3rem;
+}
+.add .edit {
+  float: right;
+  margin-top: 0.63rem;
+}
+.add .edit img {
+  width: 0.19rem;
+  height: 0.26rem;
+}
+.des {
+  height: 3.62rem;
+  background-color: #fff;
+  margin: 0.1rem 0;
+}
+.des .box1 img {
+  float: left;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.22rem;
+  margin-right: 0.3rem;
+}
+.des .box1 div {
+  float: left;
+  margin-top: 0.4rem;
+}
+.des .box1 div .p1 {
+  font-size: 0.24rem;
+  color: #646464;
+  margin-bottom: 0.22rem;
+}
+.des .box1 div .p2 {
+  font-size: 0.24rem;
+  color: #ababab;
+}
+.des .box1 .p3 {
+  color: #eb3b50;
+  font-size: 0.28rem;
+  float: right;
+  margin-top: 0.4rem;
+}
+.des .box1 .p3 span {
+  font-size: 0.2rem;
+}
+.des .box2 {
+  height: 1.33rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.des .box2 span {
+  display: inline-block;
+  font-size: 0.24rem;
+  color: #666666;
+  margin-top: 0.5rem;
+}
+.des .box2 ul {
+  float: right;
+  margin-top: 0.3rem;
+}
+.des .box2 li {
+  float: left;
+  width: 0.73rem;
+  height: 0.63rem;
+  line-height: 0.63rem;
+  border: 1px solid #666666;
+  border-radius: 0.1rem;
+  margin-left: 0.1rem;
+  text-align: center;
+  font-size: 0.15rem;
+}
+.des .box2 li.num {
+  width: 1.17rem;
+  font-size: 0.24rem;
+}
+.des .box3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 0.96rem;
+  font-size: 0.24rem;
+  color: #5d5d5d;
+}
+.discount {
+  height: 2.01rem;
+  background-color: #fff;
+  margin-bottom: 0.1rem;
+}
+.discount .box1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 1rem;
+  font-size: 0.24rem;
+  color: #5d5d5d;
+  border-bottom: 1px solid #f0f0f0;
+}
+.discount .box2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 1rem;
+}
+.discount .box2 span {
+  font-size: 0.24rem;
+  color: #5d5d5d;
+}
+.discount .box2 div .sp1 {
+  display: inline-block;
+  width: 1.5rem;
+  height: 0.7rem;
+  line-height: 0.7rem;
+  border: 1px solid #d7d7d7;
+  color: #e7e7e7;
+  font-size: 0.22rem;
+  text-align: center;
+  border-radius: 0.05rem;
+  vertical-align: middle;
+}
+.discount .box2 div .sp2 {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  line-height: 0.7rem;
+  background-color: #f26b11;
+  font-size: 0.22rem;
+  text-align: center;
+  border-radius: 0.05rem;
+  color: white;
+  vertical-align: middle;
+  margin-left: 0.09rem;
+}
+.discount .box2 div .sp3 {
+  color: #969696;
+  margin-left: 0.2rem;
+}
+.discount .box2 div .sp3 i {
+  color: #dd3242;
+}
+.price {
+  background-color: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  overflow: hidden;
+}
+.price ul {
+  margin: 0.25rem 0;
+}
+.price li {
+  height: 0.42rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.24rem;
+  color: #707070;
+}
+.price li .red {
+  color: #e02c45;
+}
+.pay {
+  background-color: white;
+  overflow: hidden;
+  height: 2.6rem;
+  position: relative;
+  border-bottom: 1px solid #f0f0f0;
+}
+.pay p {
+  float: right;
+  font-size: 0.34rem;
+  color: #636363;
+  margin: 0.52rem 0 0.46rem;
+}
+.pay p span {
+  color: #e73239;
+}
+.pay input {
+  position: absolute;
+  bottom: 0.16rem;
+  left: 1.7rem;
+  width: 3.55rem;
+  height: 1.11rem;
+  background-color: #f26b11;
+  color: white;
+  font-size: 0.3rem;
+  border-radius: 0.1rem;
+}
+.fixed-menu {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.2rem;
+}
+.fixed-menu .con {
+  width: 7.5rem;
+  height: 1.2rem;
+  margin: 0 auto;
+  background-color: #fff;
+}
+.fixed-menu .nav {
+  font-size: 0.22rem;
+  width: 6.3rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.22rem;
+  box-sizing: border-box;
+  line-height: 1.8;
+}
+.fixed-menu .nav a {
+  color: #999;
+  text-align: center;
+}
+.fixed-menu .nav a i {
+  display: block;
+  width: 0.58rem;
+  height: 0.58rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}
+.fixed-menu .nav a:first-child i {
+  background-image: url("../images/public/icon_8.jpg");
+}
+.fixed-menu .nav a:nth-child(2) i {
+  background-image: url("../images/public/icon_7.jpg");
+}
+.fixed-menu .nav a:nth-child(3) i {
+  background-image: url("../images/public/icon_5.jpg");
+}

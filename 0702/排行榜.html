@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #app{
+        margin: 0 auto;
+        text-align: center;
+
+        /* background-color: red; */
+    }
+    ul{
+        list-style: none;
+        display: flex;
+    }
+    li{
+        /* float: left; */
+        margin: 0 5px;
+        width: 200px;
+        border: 1px solid #000;
+    }
+    li div{
+        text-align: left;
+        padding: 10px 20px;
+    }
+</style>
+<script src="case/node_modules/vue/dist/vue.js"></script>
+
+<body>
+    <div id="app">
+        <h2>排行榜</h2>
+        <ul>
+            <li v-for='item in toplist'>
+                <p>{{item.title}}</p>
+                <p>{{item.titleDetail}}</p>
+                <span>---</span>
+                <div v-for='list in item.song'>{{list.rank}}.{{list.title}}
+                <p>{{list.singerName}}</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            toplist: [
+                {
+                    title: "飙升榜",
+                    titleDetail: "飙升榜 第55天",
+                    song: [
+                        {
+                            rank: 1,
+                            title: "黎明前的黑暗 (Live)",
+                            singerName: "张韶涵/王晰",
+                        },
+                        {
+                            rank: 2,
+                            title: "爱之初体验 (Live)",
+                            singerName: "胡彦斌/于文文",
+                        },
+                        {
+                            rank: 3,
+                            title: "约定 (Live)",
+                            singerName: "周蕙/于文文",
+                        }
+                    ]
+                },
+                {
+                    title: "热歌榜",
+                    titleDetail: "热歌榜 第8周",
+                    song: [
+                        {
+                            rank: 1,
+                            title: "世界这么大还是遇见你",
+                            singerName: "程响",
+                        },
+                        {
+                            rank: 2,
+                            title: "麻雀",
+                            singerName: "李荣浩",
+                        },
+                        {
+                            rank: 3,
+                            title: "处处吻",
+                            singerName: "杨千嬅",
+                        }
+                    ],
+                },
+                {
+                    title: "新歌榜",
+                    titleDetail: "新歌榜 第55天",
+                    song: [
+                        {
+                            rank: 1,
+
+                            title: "会好的",
+                            singerName: "张艺兴",
+
+                        },
+                        {
+                            rank: 2,
+
+                            title: "Amazing（迷人的你）",
+                            singerName: "林世民",
+
+                        },
+                        {
+                            rank: 3,
+
+                            title: "Only The Young (Featured in Miss Americana)",
+                            singerName: "Taylor Swift",
+
+                        }
+                    ],
+                },
+                {
+                    title: "流行指数榜",
+                    titleDetail: "流行指数榜 第55天",
+                    song: [
+                        {
+                            rank: 1,
+
+                            title: "黎明前的黑暗 (Live)",
+                            singerName: "张韶涵/王晰",
+
+                        },
+                        {
+                            rank: 2,
+
+
+                            title: "想见你想见你想见你",
+                            singerName: "八三夭乐团",
+
+                        },
+                        {
+                            rank: 3,
+
+                            title: "我爱你 (Cover卢广仲)",
+                            singerName: "程jiajia",
+
+                        }
+                    ],
+                },
+                {
+                    title: "听歌识曲榜",
+                    titleDetail: "听歌识曲榜 第55天",
+                    song: [
+                        {
+                            rank: 1,
+
+                            title: "Dancing With Your Ghost",
+                            singerName: "Sasha Sloan",
+
+                        },
+                        {
+                            rank: 2,
+
+                            title: "世界这么大还是遇见你",
+
+                        },
+                        {
+                            rank: 3,
+
+                            title: "I Want You To Know (Hella x Pegato Remix)",
+                            singerName: "Pegato/Zedd/Selena Gomez",
+
+                        }
+                    ],
+                },
+                {
+                    title: "MV榜",
+                    titleDetail: "MV榜 ",
+                    song: [
+                        {
+                            rank: 1,
+                            title: "等风雨经过",
+                            singerName: "张学友",
+                        },
+                        {
+                            rank: 2,
+
+                            title: "会好的",
+                            singerName: "张艺兴",
+
+                        },
+                        {
+                            rank: 3,
+
+                            title: "麻雀",
+                            singerName: "李荣浩",
+
+                        }
+                    ],
+                }
+            ]
+        }
+    })
+</script>
+
+</html>

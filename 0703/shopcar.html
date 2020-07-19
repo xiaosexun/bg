@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src='./node_modules/vue/dist/vue.js'></script>
+<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+<body>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 50px;"><input type="checkbox">全选</th>
+                <th scope="col"style="width: 600px;">商品</th>
+                <th scope="col"style="width: 100px;">单价</th>
+                <th scope="col"style="width: 100px;">数量</th>
+                <th scope="col"style="width: 100px;">小计</th>
+                <th scope="col"style="width: 100px;">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for='item in list' class="list-group-item-success">
+                <th><input type="checkbox"></th>
+                <td> <img :src="item.img" alt="" style="width: 100px;height: 100px;">{{item.tit}}</td>
+                <td>￥{{item.price}}</td>
+                <td><button @click="minus(index)">-</button>
+                    {{item.num}}
+                    <button @click="add(index)">+</button>
+                </td>
+                <td>￥{{item.sum}}</td>
+                <td>
+                    <button type="button" class="btn btn-danger">删除</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="float: right; margin-right: 50px;" class="alert alert-danger">
+        总计：￥7997 <button type="button" class="btn btn-danger">去结算</button>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:'table',
+        data:{
+            allcheck: false,
+            list:[
+            {
+                    img:'https://image2.suning.cn/uimg/cms/img/156756354662165548.jpg',
+                    tit:"PPTV智能电视50VU4",
+                    price:"1999",
+                    num:"1",
+                    sum:'1999'
+                },
+                {
+                    img:'https://imgservice5.suning.cn/uimg1/b2c/atmosphere/J2WcrydlCg209LrducYVHQ.jpg?format=400w_400h_4e',
+                    tit:"长虹55D4P",
+                    price:"2999",
+                    num:"1",
+                    sum:'5998'
+                },
+            ]
+        },
+        computed: {
+                totalPrice() {
+                    // console.log('计算属性执行了')
+                    // console.log(this.goods)
+                    //遍历数组，把每一个商品的单价乘以数量并求和
+                    var sum = 0;
+                    this.goods.map(item => {
+                        if (item.ischeck) {
+                            sum += item.goodsprice * item.num;
+                        }
+                    });
+                    //reduce
+                    // this.goods.reduce((sum,item)=>{
+                    //     if(item.ischeck){
+                    //         return sum+=item.goodsprice*item.num;
+                    //     }
+                    // },0)
+                    // 根据每一个商品的选中状态计算出全选的状态
+                    // 如果所有的商品选中状态都是true，那么全选也是true
+                    // 只要有一个商品的选中状态是false，那么全选就是false
+                    //every 数组的所有元素都为true时，才为true
+                    //some
+                    this.allcheck = this.goods.every(item => {
+                        return item.ischeck;
+                    })
+                //     return sum;
+                }
+            },
+            watch:{
+                allcheck(){
+                    console.log('监听执行了...')
+                    //监听全选的状态，并把每一个商品的状态与之同步
+                    this.goods.map(item=>{
+                        item.ischeck = this.allcheck
+                    })
+                }
+            },
+            methods: {
+                // 数量增加
+                add(n) {
+                    if (this.goods[n].num == 99) {
+                        return;
+                    }
+                    this.goods[n].num++;
+                },
+                // 数量减少
+                minus(m) {
+                    if (this.goods[m].num == 1) {
+                        return;
+                    }
+                    this.goods[m].num--;
+                },
+                //删除商品
+                del(i) {
+                    this.goods.splice(i, 1)
+                },
+                //全选按钮的点击
+                all() {
+                    this.allcheck = !this.allcheck;
+                    this.goods.map(item => {
+                        item.ischeck = this.allcheck;
+                    })
+                }
+            }
+
+    })
+</script>
+</html>
