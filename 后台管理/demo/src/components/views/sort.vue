@@ -7,12 +7,20 @@
             <el-button size="small" type="primary" @click="add">添加</el-button>
         </div>
         <!-- 表格信息 -->
-        <el-table :data="getStateMenuList" border style="width: 100%" row-key="id"  :tree-props="{children: 'children'}">
-            <el-table-column prop="id" label="菜单编号"></el-table-column>
-            <el-table-column prop="title" label="菜单名称"></el-table-column>
-            <el-table-column prop="pid" label="上级菜单"></el-table-column>
-            <el-table-column prop="icon" label="菜单图标"></el-table-column>
-            <el-table-column prop="url" label="菜单地址"></el-table-column>
+        <el-table
+            :data="getStateCateList"
+            border
+            style="width: 100%"
+            row-key="id"
+            :tree-props="{children: 'children'}"
+        >
+            <el-table-column prop="id" label="分类编号"></el-table-column>
+            <el-table-column prop="catename" label="分类名称"></el-table-column>
+            <el-table-column prop="img" label="图片">
+                <template slot-scope="item">
+                    <img class="imgInfo" :src="'http://localhost:3000/'+item.row.img" alt />
+                </template>
+            </el-table-column>
             <el-table-column prop="status" label="状态">
                 <template slot-scope="item">
                     <el-tag v-if="item.row.status==1" type="success">启动</el-tag>
@@ -28,90 +36,107 @@
         </el-table>
         <!-- 弹框内容 -->
         <el-dialog
-            :title="isAdd ? '菜单添加':'菜单编辑'"
+            :title="isAdd ? '添加商品分类':'编辑商品分类'"
             :visible.sync="dialogIsShow"
             center
             :before-close="cancel"
         >
-            <el-form :model="menuInfo" :rules="rules" ref="menuInfo">
-                <el-form-item label="菜单名称：" :label-width="formLabelWidth" prop="title">
-                    <el-input v-model="menuInfo.title"></el-input>
-                </el-form-item>
-                <el-form-item label="上级菜单：" :label-width="formLabelWidth" placeholder='请选择菜单' prop="pid">
-                    <el-select v-model="menuInfo.pid" placeholder="请选择">
-                        <el-option label="顶级菜单" :value="0">顶级菜单</el-option>
-                        <el-option v-for='item in getStateMenuList' :key='item.id' :label="item.title" :value="item.id">{{item.title}}</el-option>
+            <el-form :model="cateInfo" :rules="rules" ref="cateInfo">
+                <el-form-item
+                    label="上级分类："
+                    :label-width="formLabelWidth"
+                    placeholder="请选择分类"
+                    prop="pid"
+                >
+                    <el-select v-model="cateInfo.pid" placeholder="请选择">
+                        <el-option label="顶级分类" :value="0">顶级分类</el-option>
+                        <el-option
+                            v-for="item in getStateCateList"
+                            :key="item.id"
+                            :label="item.catename"
+                            :value="item.id"
+                        >{{item.catename}}</el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="菜单类型：" :label-width="formLabelWidth">
-                    <el-radio :disabled="menuInfo.pid!=0"  v-model="menuInfo.type" label="1">目录</el-radio>
-                    <el-radio :disabled="menuInfo.pid==0" v-model="menuInfo.type" label="2">菜单</el-radio>
+                <el-form-item label="分类名称：" :label-width="formLabelWidth" prop="catename">
+                    <el-input v-model="cateInfo.catename"></el-input>
                 </el-form-item>
-                <el-form-item v-if='menuInfo.type==1' label="菜单图标：" :label-width="formLabelWidth">
-                    <el-input :disabled="menuInfo.pid!=0" v-model="menuInfo.icon"></el-input>
-                </el-form-item>
-                <el-form-item v-if='menuInfo.type==2'  label="菜单地址：" :label-width="formLabelWidth">
-                    <el-input :disabled="menuInfo.pid==0" v-model="menuInfo.url"></el-input>
+                <el-form-item label="图片：" :label-width="formLabelWidth">
+                    <!-- 
+                        上传图片
+                        auto-upload	是否在选取文件后立即进行上传
+                        action	必选参数，上传的地址
+                    -->
+                    <el-upload
+                        action="#"
+                        list-type="picture-card"
+                        :on-preview="handlePreview"
+                        :on-remove="handleRemove"
+                        :file-list="fileList"
+                        :auto-upload="false"
+                        :on-change="changeInfo"
+                    >
+                        <i class="el-icon-plus"></i>
+                    </el-upload>
+                    <el-dialog :visible.sync="dialogVisible">
+                        <img width="100%" :src="dialogImageUrl" alt />
+                    </el-dialog>
                 </el-form-item>
                 <el-form-item label="状态：" :label-width="formLabelWidth">
-                    <el-radio v-model="menuInfo.status" label="1">启用</el-radio>
-                    <el-radio v-model="menuInfo.status" label="2">禁用</el-radio>
+                    <el-radio v-model="cateInfo.status" label="1">启用</el-radio>
+                    <el-radio v-model="cateInfo.status" label="2">禁用</el-radio>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="cancel">取 消</el-button>
-                <el-button v-if="isAdd" type="primary" @click="subInfo('menuInfo')">新 增</el-button>
-                <el-button v-else type="primary" @click="subInfo('menuInfo')">更 新</el-button>
+                <el-button v-if="isAdd" type="primary" @click="subInfo('cateInfo')">新 增</el-button>
+                <el-button v-else type="primary" @click="subInfo('cateInfo')">更 新</el-button>
             </div>
         </el-dialog>
     </div>
 </template>
 
 <script>
-//引入菜单接口
+//引入分类接口
 import {
-    getMenuAdd,
-    getMenuInfo,
-    getMenuEdit,
-    getMenuDelete
+    getcateAdd,
+    getcateInfo,
+    getcateEdit,
+    getcateDelete
 } from '../../util/axios'
 //调取辅助性函数
-import {mapActions,mapGetters} from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 //引入面包屑组件
 import breadCrumb from '../common/breadcrumb'
 export default {
     data() {
         return {
+            fileList: [], //文件上传列表
+            dialogImageUrl: '', //显示图片
+            dialogVisible: false, //开启图片的弹框
+            imgUrl: '', //上传之后的图片地址
             isAdd: true, //添加
-            formLabelWidth: '100px', 
-            menuInfo: {
+            formLabelWidth: '100px', //label宽度
+            cateInfo: {
                 pid: 0, //上级分类编号
-                title: '', //菜单名称
-                icon: '', //图标
-                url: '', //菜单地址
-                type: '1', //类型1目录2菜单
+                catename: '', //分类名称
+                img: '', //图片
                 status: '1'
             },
-            editId: 0,
+            editId: 0, //修改id
             dialogIsShow: false, //是否出现弹框
             rules: {
-                title: [
+                catename: [
                     {
                         required: true,
-                        message: '请输入菜单名称',
-                        trigger: 'blur'
-                    },
-                    {
-                        min: 2,
-                        max: 6,
-                        message: '长度在 2 到 6 个字符',
+                        message: '请输入分类名称',
                         trigger: 'blur'
                     }
                 ],
                 pid: [
                     {
                         required: true,
-                        message: '请选择菜单',
+                        message: '请选择分类',
                         trigger: 'blur'
                     }
                 ]
@@ -119,14 +144,30 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getStateMenuList'])
+        ...mapGetters(['getStateCateList'])
     },
     mounted() {
-        //组件一加载就调取菜单接口
-        //触发才调取vuex中的菜单列表
-        this.getActionMenuList()
+        //组件一加载就调取分类接口
+        //触发才调取vuex中的分类列表
+        this.getActionCateList()
     },
     methods: {
+        //移除图片
+        handleRemove(file, fileList) {
+            console.log(file, fileList)
+        },
+        //放大图片
+        handlePreview(file) {
+            this.dialogImageUrl = file.url
+            console.log(file.url, '图片的地址。。。')
+            this.dialogVisible = true
+
+            console.log(file, '文件地址')
+        },
+        changeInfo(file) {
+            console.log(file, '修改文件')
+            this.imgUrl = file.raw
+        },
         //关闭弹框事件
         cancel() {
             this.reset()
@@ -134,17 +175,16 @@ export default {
         },
         //重置输入内容
         reset() {
-            this.menuInfo = {
-                pid: 0, //上级分类编号
-                title: '', //菜单名称
-                icon: '', //图标
-                url: '', //菜单地址
-                type: '1', //类型1目录2菜单
-                status: '1' //1是启用 2是禁用
-            }
+           this.dialogImageUrl = '', //显示图片
+                this.cateInfo = {
+                    pid: 0, //上级分类编号
+                    catename: '', //分类名称
+                    img: '', //图片
+                    status: '1'
+                }
         },
-        //封装一个获取菜单列表事件
-        ...mapActions(['getActionMenuList']),
+        //封装一个获取分类列表事件
+        ...mapActions(['getActionCateList']),
         //点击添加按钮出现弹框
         add() {
             console.log('出现弹框')
@@ -158,13 +198,12 @@ export default {
             this.isAdd = false
             //给编辑id赋值
             this.editId = id
-            //调取菜单查询一条数据
-            getMenuInfo({ id }).then(res => {
+            //调取分类查询一条数据
+            getcateInfo({ id }).then(res => {
                 if (res.data.code == 200) {
                     console.log(res)
-                    this.menuInfo = res.data.list
-                    this.menuInfo.type = this.menuInfo.type.toString()
-                    this.menuInfo.status = this.menuInfo.status.toString()
+                    this.cateInfo = res.data.list
+                    this.cateInfo.status = this.cateInfo.status.toString()
                 }
             })
         },
@@ -177,10 +216,10 @@ export default {
             })
                 .then(() => {
                     //调取删除逻辑
-                    getMenuDelete({ id }).then(res => {
+                    getcateDelete({ id }).then(res => {
                         if (res.data.code == 200) {
                             //重新调取接口列表
-                            this.getActionMenuList()
+                            this.getActionCateList()
                             this.$message.success(res.data.msg)
                         } else {
                             this.$message.error(res.data.msg)
@@ -198,17 +237,25 @@ export default {
         subInfo(formName) {
             this.$refs[formName].validate(valid => {
                 if (valid) {
-                    //根据isAdd状态判断执行接口
+                    let data = this.cateInfo
+                    //如果上传文件 不能直接传值 需要FormData转化
+                    let file = new FormData()
+                    for (let i in data) {
+                        file.append(i, data[i])
+                    }
+                    //单独对图片地址进行操作
+                    file.append('img', this.imgUrl)
+                    //根据isAdd状态去判断执行接口
                     if (this.isAdd) {
                         //调取添加接口
-                        getMenuAdd(this.menuInfo).then(res => {
+                        getcateAdd(file).then(res => {
                             if (res.data.code == 200) {
                                 //关闭弹框
                                 this.dialogIsShow = false
                                 //清空输入框
                                 this.reset()
                                 //添加成功重新查询列表
-                                this.getActionMenuList()
+                                this.getActionCateList()
                                 this.$message.success(res.data.msg)
                             } else if (res.data.code == 500) {
                                 this.$message.warning(res.data.msg)
@@ -217,17 +264,17 @@ export default {
                             }
                         })
                     } else {
-                        let data = this.menuInfo
+                        let data = this.cateInfo
                         data.id = this.editId
                         //调取更新接口
-                        getMenuEdit(data).then(res => {
+                        getcateEdit(data).then(res => {
                             if (res.data.code == 200) {
                                 //关闭弹框
                                 this.dialogIsShow = false
                                 //清空输入框
                                 this.reset()
                                 //添加成功重新查询列表
-                                this.getActionMenuList()
+                                this.getActionCateList()
                                 this.$message.success(res.data.msg)
                             } else if (res.data.code == 500) {
                                 this.$message.warning(res.data.msg)
@@ -256,5 +303,9 @@ export default {
 
 .el-input {
     width: 85%;
+}
+
+.imgInfo {
+    width: 150px;
 }
 </style>

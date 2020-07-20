@@ -5,5 +5,11 @@ export default {
     },
     reqRoleList(state,payload){
         state.roleList = payload
+    },
+    reqUserList(state,payload){
+        state.userList = payload
+    },
+    reqCateList(state,payload){
+        state.cateList = payload
     }
 }

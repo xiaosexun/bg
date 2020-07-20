@@ -16,15 +16,15 @@ export default new Router({
       children: [{
           path: '/menu',
           component: () => import('@/components/views/menu'),
-          meta:{//自定义对象
-            name:'菜单管理'
+          meta: { //自定义对象
+            name: '菜单管理'
           }
         },
         {
           path: '/user',
           component: () => import('@/components/views/user'),
-          meta:{//自定义对象
-            name:'用户管理'
+          meta: { //自定义对象
+            name: '管理员管理'
           }
         },
         {
@@ -35,10 +35,17 @@ export default new Router({
           component: () => import('@/components/views/home')
         },
         {
-            path: '/role',
-            component: () => import('@/components/views/role'),
-            meta:{
-                name:'角色管理'
+          path: '/role',
+          component: () => import('@/components/views/role'),
+          meta: {
+            name: '角色管理'
+          }
+        },
+        {
+            path: '/sort',
+            component: () => import('@/components/views/sort'),
+            meta: {
+              name: '商品分类'
             }
           },
       ]
