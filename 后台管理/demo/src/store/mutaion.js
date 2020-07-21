@@ -11,5 +11,11 @@ export default {
     },
     reqCateList(state,payload){
         state.cateList = payload
+    },
+    reqSpecsList(state,payload){
+        state.specsList = payload
+    },
+    reqGoodsList(state,payload){
+        state.goodsList = payload
     }
 }

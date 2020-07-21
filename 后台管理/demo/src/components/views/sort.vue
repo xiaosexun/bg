@@ -75,6 +75,8 @@
                         :file-list="fileList"
                         :auto-upload="false"
                         :on-change="changeInfo"
+                        :limit='1'
+                        :on-exceed="handleExceed"
                     >
                         <i class="el-icon-plus"></i>
                     </el-upload>
@@ -152,6 +154,10 @@ export default {
         this.getActionCateList()
     },
     methods: {
+        //当文件个数被限制时触发的函数
+        handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
         //移除图片
         handleRemove(file, fileList) {
             console.log(file, fileList)
@@ -175,8 +181,8 @@ export default {
         },
         //重置输入内容
         reset() {
-           this.dialogImageUrl = '', //显示图片
-                this.cateInfo = {
+            this.fileList = [], //上传文件列表
+            this.cateInfo = {
                     pid: 0, //上级分类编号
                     catename: '', //分类名称
                     img: '', //图片
@@ -203,6 +209,8 @@ export default {
                 if (res.data.code == 200) {
                     console.log(res)
                     this.cateInfo = res.data.list
+                    //对获取的图片进行格式转化
+                    this.fileList = this.cateInfo.img ? [{url:`http://localhost:3000${this.cateInfo.img}`}] :[]
                     this.cateInfo.status = this.cateInfo.status.toString()
                 }
             })
@@ -238,7 +246,7 @@ export default {
             this.$refs[formName].validate(valid => {
                 if (valid) {
                     let data = this.cateInfo
-                    //如果上传文件 不能直接传值 需要FormData转化
+                    //如果有上传文件 那我们不能直接传值 需要利用FormData转化
                     let file = new FormData()
                     for (let i in data) {
                         file.append(i, data[i])
@@ -264,10 +272,9 @@ export default {
                             }
                         })
                     } else {
-                        let data = this.cateInfo
-                        data.id = this.editId
+                        file.append('id',this.editId)
                         //调取更新接口
-                        getcateEdit(data).then(res => {
+                        getcateEdit(file).then(res => {
                             if (res.data.code == 200) {
                                 //关闭弹框
                                 this.dialogIsShow = false
