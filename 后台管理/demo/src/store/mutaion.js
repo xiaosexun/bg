@@ -17,5 +17,11 @@ export default {
     },
     reqGoodsList(state,payload){
         state.goodsList = payload
+    },
+    reqSeckList(state,payload){
+        state.seckList = payload
+    },
+    reqBannerList(state, payload) {
+      state.bannerList = payload
     }
 }

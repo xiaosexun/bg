@@ -22,5 +22,13 @@ export default {
     //商品管理
     getStateGoodsList(state){
         return state.goodsList
-    }
+    },
+    //秒杀
+    getStateSeckList(state){
+        return state.seckList
+    },
+    // 轮播图
+    getStateBannerList(state) {
+      return state.bannerList
+    },
 }

@@ -5,4 +5,6 @@ export default {
     cateList:[],//分类列表
     specsList:[],//规格列表
     goodsList:[],//商品列表
+    seckList:[],//秒杀列表
+    bannerList:[],
 }

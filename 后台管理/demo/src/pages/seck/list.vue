@@ -1,17 +1,11 @@
 <template>
     <div>
         <el-table
-            :data="getStateMenuList"
+            :data="getStateSeckList"
             border
             style="width: 100%"
-            row-key="id"
-            :tree-props="{children: 'children'}"
         >
-            <el-table-column prop="id" label="菜单编号"></el-table-column>
-            <el-table-column prop="title" label="菜单名称"></el-table-column>
-            <el-table-column prop="pid" label="上级菜单"></el-table-column>
-            <el-table-column prop="icon" label="菜单图标"></el-table-column>
-            <el-table-column prop="url" label="菜单地址"></el-table-column>
+            <el-table-column prop="title" label="活动名称"></el-table-column>
             <el-table-column prop="status" label="状态">
                 <template slot-scope="item">
                     <el-tag v-if="item.row.status==1" type="success">启动</el-tag>
@@ -30,22 +24,22 @@
 
 <script>
 //引入菜单接口
-import { getMenuDelete } from '../../util/axios'
+import { getseckDelete } from '../../util/axios'
 //调取辅助性函数
 import { mapActions, mapGetters } from 'vuex'
 export default {
     computed: {
         //计算属性
-        ...mapGetters(['getStateMenuList'])
+        ...mapGetters(['getStateSeckList'])
     },
     mounted() {
         //组件一加载就调取菜单接口
         //触发才调取vuex中的菜单列表
-        this.getActionMenuList()
+        this.getActionSeckList()
     },
     methods: {
         //封装一个获取菜单列表事件
-        ...mapActions(['getActionMenuList']),
+        ...mapActions(['getActionSeckList']),
         //点击添加按钮修改父组件数据
         update(id){
             this.$emit('edit',{
@@ -66,7 +60,7 @@ export default {
                     getMenuDelete({ id }).then(res => {
                         if (res.data.code == 200) {
                             //重新调取接口列表
-                            this.getActionMenuList()
+                            this.getActionSeckList()
                             this.$message.success(res.data.msg)
                         } else {
                             this.$message.error(res.data.msg)

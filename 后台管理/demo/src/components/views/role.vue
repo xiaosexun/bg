@@ -49,6 +49,7 @@
                         ref="tree"
                         :props="defaultProps"
                         :default-checked-keys="defaultKey"
+                        check-strictly
                     ></el-tree>
                 </el-form-item>
                 <el-form-item label="状态：" :label-width="formLabelWidth">

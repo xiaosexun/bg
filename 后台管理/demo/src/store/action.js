@@ -4,7 +4,9 @@ import {
   getuserList,
   getcateList,
   getspecsList,
-  getgoodsList
+  getgoodsList,
+  getseckList,
+  getbannerList
 } from '../util/axios'
 
 export default {
@@ -85,4 +87,26 @@ export default {
         }
       })
   },
+    //封装一个获取秒杀列表
+    getActionSeckList({
+        commit
+      }) {
+        getseckList()
+          .then(res => {
+            if (res.data.code == 200) {
+              commit('reqSeckList', res.data.list)
+            }
+          })
+      },
+       //封装一个获取轮播图列表
+       getActionBannerList({
+         commit
+       }) {
+         getbannerList()
+           .then(res => {
+             if (res.data.code == 200) {
+               commit('reqBannerList', res.data.list)
+             }
+           })
+       },
 }

@@ -11,7 +11,11 @@
             <el-table-column prop="goodsname" label="商品名称"></el-table-column>
             <el-table-column prop="price" label="商品价格"></el-table-column>
             <el-table-column prop="market_price" label="市场价格"></el-table-column>
-            <el-table-column prop="img" label="图片"></el-table-column>
+            <el-table-column prop="img" label="图片">
+                <template slot-scope="item">
+                    <img class="imgUrl" :src="$imgUrl+item.row.img" alt="">
+                </template>
+            </el-table-column>
             <el-table-column prop="isnew" label="是否新品">
                 <template slot-scope="item">
                     <el-tag v-if="item.row.isnew==1" type="success">是</el-tag>
@@ -143,5 +147,8 @@ export default {
 .el-pagination {
     float: right;
     margin: 16px 0;
+}
+.imgUrl{
+    width: 150px;
 }
 </style>

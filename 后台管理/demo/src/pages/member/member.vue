@@ -2,10 +2,6 @@
     <div>
         <!-- 面包屑 -->
         <bread-Crumb></bread-Crumb>
-        <!-- 按钮 -->
-        <div>
-            <el-button size="small" type="primary" @click="add">添加</el-button>
-        </div>
         <!-- 表格信息 -->
         <v-list @edit="edit"></v-list>
         <!-- 弹框内容 -->
